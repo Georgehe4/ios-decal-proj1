@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  test
+//  ToDoList
 //
 //  Created by George He on 2/21/16.
 //  Copyright © 2016 George He. All rights reserved.

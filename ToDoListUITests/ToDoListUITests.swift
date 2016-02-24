@@ -1,6 +1,6 @@
 //
-//  testUITests.swift
-//  testUITests
+//  ToDoListUITests.swift
+//  ToDoListUITests
 //
 //  Created by George He on 2/21/16.
 //  Copyright © 2016 George He. All rights reserved.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class testUITests: XCTestCase {
+class ToDoListUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()
