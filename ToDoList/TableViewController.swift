@@ -24,8 +24,8 @@ class TableViewController: UITableViewController {
         if let savedList = loadList() {
             toDoList += savedList
         }
-        
         filterList()
+        savetoDoList()
     }
     
     func addDates(date: NSDate, daysToAdd:Int) -> NSDate{
@@ -37,44 +37,41 @@ class TableViewController: UITableViewController {
     }
     
     func filterList() {
-        var newList = [ListItem]()
-        for task in toDoList{
+        var index = 0
+        while (index < toDoList.count){
+            let task = toDoList[index]
             let completed = task.completed
             if completed {
                 let date = task.date!
                 let lastDate = addDates(date, daysToAdd: 1)
                 //Compare Values
-                if date.compare(lastDate) == NSComparisonResult.OrderedDescending {
-                    print(task.name)
-                }
-                else {
-                    newList.append(task)
+                if NSDate().compare(lastDate) == NSComparisonResult.OrderedDescending {
+                    toDoList.removeAtIndex(index)
+                    tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Fade)
+                    index -= 1
                 }
             }
-            else {
-                newList.append(task)
-            }
+            index += 1
         }
-        toDoList = newList
-        savetoDoList()
     }
     
     @IBAction func unwindToList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? AddViewController, task = sourceViewController.list {
+        if let sourceViewController = sender.sourceViewController as? AddViewController, task = sourceViewController.userTask {
             //Old code to edit values
             /*if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                // Update an existing task.
-                toDoList[selectedIndexPath.row] = task
-                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+            // Update an existing task.
+            toDoList[selectedIndexPath.row] = task
+            tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
             } else {*/
-                // Add a new task.
+            // Add a new task.
             let newIndexPath = NSIndexPath(forRow: toDoList.count, inSection: 0)
             toDoList.append(task)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
             //}
             // Save the toDoList.
-            savetoDoList()
         }
+        filterList()
+        savetoDoList()
     }
     
     override func didReceiveMemoryWarning() {
@@ -105,7 +102,7 @@ class TableViewController: UITableViewController {
                 toDoList[indexPath.row].date = NSDate()
                 toDoList[indexPath.row].completed = true
             }
-        }    
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -154,7 +151,7 @@ class TableViewController: UITableViewController {
             if let selectedCell = sender as? ListViewCell {
                 let indexPath = tableView.indexPathForCell(selectedCell)!
                 let selectedTask = toDoList[indexPath.row]
-                listDetailViewController.list = selectedTask
+                listDetailViewController.userTask = selectedTask
             }
         }
         else if segue.identifier == "Statistics" {
@@ -168,7 +165,7 @@ class TableViewController: UITableViewController {
         }
         savetoDoList()
     }
-
+    
     
     //Save stuff
     

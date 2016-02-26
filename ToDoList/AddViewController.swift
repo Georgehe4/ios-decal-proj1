@@ -12,19 +12,21 @@ class AddViewController: UIViewController, UITextFieldDelegate, UINavigationCont
     @IBOutlet weak var textField: UITextView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    var list: ListItem?
+    var userTask: ListItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        if let list = list
+        if let userTask = userTask
         {
-            navigationItem.title = list.name
-            textField.text   = list.name
+            navigationItem.title = userTask.name
+            textField.text   = userTask.name
         }
         textField.layer.borderColor = UIColor.lightGrayColor().CGColor
         textField.layer.borderWidth = 3.0
+        textField.layer.cornerRadius = 10.0
+        textField.becomeFirstResponder()
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -54,7 +56,7 @@ class AddViewController: UIViewController, UITextFieldDelegate, UINavigationCont
         if saveButton === sender {
             let name = textField.text ?? ""
             // Set the task to be passed along after the unwind segue.
-            self.list = ListItem(name: name,  date:NSDate(), completed:false)
+            self.userTask = ListItem(name: name,  date:NSDate(), completed:false)
         }
         else {
             return

@@ -164,7 +164,7 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gTT-JZ-uTs">
                                 <rect key="frame" x="43" y="160" width="506" height="102"/>
-                                <color key="backgroundColor" red="0.96509598603839442" green="0.96509598603839442" blue="0.96509598603839442" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="102" id="M6N-Nv-DNh"/>
                                 </constraints>
